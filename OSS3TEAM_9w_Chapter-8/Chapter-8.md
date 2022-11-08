@@ -211,7 +211,8 @@ menu4를 추가 후 Commit
 hotfix 브랜치를 master 브랜치에 병합하는 과정 실습. hotfix 브랜치를 병합하려면 master 브랜치로 Check-out 해야함.
     
 
-![19](https://user-images.githubusercontent.com/105197472/200491093-dc544ccf-e4d2-4001-acde-3ae37631747a.PNG
+![19](https://user-images.githubusercontent.com/105197472/200492379-24ae4341-f539-4ae5-af1b-4f34c155b341.PNG)
+
 
  3-way 방식으로 두 브랜치를 병합한것을 그림으로 나타내면 아래와 같음.
     
