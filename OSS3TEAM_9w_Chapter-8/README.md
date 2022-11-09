@@ -38,9 +38,26 @@ $ git rev-parse feature  --- 브랜치 커밋 확인
 525bf0f445d8829a9759d215071901799791db5a
 ```
 index.htm 파일 수정후 등록 및 커밋 후 커밋 이력 확인
+
 ```
 $ code index.htm  --- feature 브랜치 안에 있는 index.htm 파일 수정
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Title</title>
+</head>
+<body>
+  <header>
+  </header>
+  <h1>hello GIT world!</h1>
+</body>
+</html>
+```
+등록 및 커밋후 커밋 이력 확인하기
+```
 $ git commit -am "add header" --- 등록 및 커밋
 [feature a209baf] add header
 1 file changed, 2 insertions(+)
@@ -61,12 +78,49 @@ Date:   Mon Nov 7 23:43:53 2022 +0900
 feature 브랜치에 등록 및 커밋 2번하기
 ```
 $ code index.htm  --- feature 브랜치 안에 있는 index.htm 파일 수정
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Title</title>
+</head>
+<body>
+  <header>
+    <ul>
+      <li>깃소개</li>
+    </ul>
+  </header>
+  <h1>hello GIT world!</h1>
+</body>
+</html>
 
 $ git commit -am "add menu1"  --- 등록 및 커밋
 [feature 3c0edb4] add menu1
  1 file changed, 3 insertions(+)
+```
 
+```
 $ code index.htm  --- feature 브랜치 안에 있는 index.htm 파일 수정
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Title</title>
+</head>
+<body>
+  <header>
+    <ul>
+      <li>깃소개</li>
+      <li>깃설치</li>
+    </ul>
+  </header>
+  <h1>hello GIT world!</h1>
+</body>
+</html>
 
 $ git commit -am "add menu2"  --- 등록 및 커밋
 [feature 140f38d] add menu2
@@ -115,7 +169,7 @@ a209baf add header
 
 $ code index.htm  --- vscode 실행
 ```
-**Fast-Forward 병합은 병합할 하나의 브랜치 파일을 기준 브랜치로 복하여 수정된 파일을 원본에 그대로 적용한 것과 같습니다.** <br>
+**Fast-Forward 병합은 병합할 하나의 브랜치 파일을 기준 브랜치로 복사하여 수정된 파일을 원본에 그대로 적용한 것과 같습니다.** <br>
 **즉 원본에 추가된 내용이 없다는 가정하에 변경한 파일을 대체하는 것입니다.**
 
 ## 📌8-3 3way 병합
