@@ -325,6 +325,52 @@ hotfix 브랜치를 master 브랜치에 병합하는 과정 실습. hotfix 브�
   ▶️ 깃은 충돌 오류임을 알려주고 개발자가 직접 어떤 수정 내용을 선택할지를 결정하여 충돌을 해결하라고 요청한다.
   
 보통 **충돌**은 **3way 병합이 실패**한 경우에 많이 일어난다.
+  
+
+# 8.5.2 실습을 위한 충돌 만들기
+
+1. 새로운 footer 브랜치를 만들고 체크아웃한다.
+```bash
+뚜비@DESKTOP-SKBKL14 MINGW64 /c/OSS/git/10w chapter 08 (main)
+$ git checkout -b footer     # 기준 브랜치인 main에서 새로운 브랜치 파생
+Switched to a new branch 'footer'
+
+뚜비@DESKTOP-SKBKL14 MINGW64 /c/OSS/git/10w chapter 08 (footer)
+```
+<br/>
+  
+2. footer 브랜치에서 index.htm 파일의 <footer>~</footer> 부분 코드를 수정하고 커밋한다.
+```bash
+뚜비@DESKTOP-SKBKL14 MINGW64 /c/OSS/git/10w chapter 08 (footer)
+$ code index.htm     # VS Code 실행하여 index.htm 파일 편집
+```
+
+다음과 같은 내용으로 편집한다.
+```html
+<!DOCTYPE html>
+<html></html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name = "viewport" content = "width=device-width, inital-scale=1">
+    <title>Page Title</title>
+</head>
+<body>
+    <header>
+        <ul>
+            <li>깃소개</li>
+            <li>깃설치</li>
+        </ul>
+    </header>
+    <h1>hello GIT world!</h1>
+    <footer>
+            copyright all right 2018 reserved     
+            by hojinlee          <!-- copyrighter 부분을 2줄로 수정함. -->
+    </footer>
+</body>
+</html>
+```
+<br/>
+
 
 # 📌 8.7 리베이스
 ## 8.7.1 베이스
