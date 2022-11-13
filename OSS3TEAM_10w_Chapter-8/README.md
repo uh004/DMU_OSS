@@ -327,7 +327,7 @@ hotfix 브랜치를 master 브랜치에 병합하는 과정 실습. hotfix 브�
 보통 **충돌**은 **3way 병합이 실패**한 경우에 많이 일어난다.
   
 
-# 8.5.2 실습을 위한 충돌 만들기
+## 8.5.2 실습을 위한 충돌 만들기
 
 1. 새로운 footer 브랜치를 만들고 체크아웃한다.
 ```bash
@@ -370,8 +370,104 @@ $ code index.htm     # VS Code 실행하여 index.htm 파일 편집
 </html>
 ```
 <br/>
+  
+3. 이어서 커밋을 진행한다.
+```bash
+뚜비@DESKTOP-SKBKL14 MINGW64 /c/OSS/git/10w chapter 08 (footer)
+$ git commit -am "edit footer"
+[footer af8cbd3] edit footer
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+```
+<br/>
+  
+4. 다시 main 브랜치로 이동하여 index.htm 파일을 수정한다.
+```bash
+뚜비@DESKTOP-SKBKL14 MINGW64 /c/OSS/git/10w chapter 08 (footer)
+$ git checkout main
+Switched to branch 'main'
+```
 
+index.htm 파일을 수정할 때는 충돌이 발생하도록 동일한 위치의 내용을 수정하고 커밋한다.
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page Title</title>
+</head>
+<body>
+    <header>
+        <ul>
+            <li>깃소개</li>
+            <li>깃설치</li>
+            <li>커밋</li>
+            <li>브랜치</li>
+        </ul>
+    </header>
+    <h1>hello GIT world!</h1>
+    <footer>
+        copyright all right 2020 reserved 
+        by jinyphp     <!-- 두 줄로 만들고 hojinlee를 jinyphp로 수정하였다. -->
+    </footer>
+</body>
+</html>
+```
+<br/>
 
+5. 이어서 등록 및 커밋을 진행한다.
+```bash
+뚜비@DESKTOP-SKBKL14 MINGW64 /c/OSS/git/10w chapter 08 (main)
+$ git commit -am "edit copyright"
+[main f0bdc30] edit copyright
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+```
+<br/>
+  
+6. main 브랜치와 footer 브랜치 각각에 커밋이 하나씩 추가되었다. 서로 다른 브랜치에서 각각 커밋했기 때문에 그래프가 두 갈래로 갈라져야 한다. 아래와 같이 소스트리에서 확인      가능하다.
+![image](https://user-images.githubusercontent.com/99963066/201524360-adf29296-3764-4c87-a6c4-008b83e921e3.png)
+<br/>
+  
+7. 서로 다르게 분기된 브랜치이기 때문에 3-way 병합을 시도해 본다. 현재 브랜치가 main인지를 확인 후 병합 명령어를 실행한다.
+```bash
+뚜비@DESKTOP-SKBKL14 MINGW64 /c/OSS/git/10w chapter 08 (main)     # 기준 브랜치
+$ git merge footer      # 병합 실행
+Auto-merging index.htm
+CONFLICT (content): Merge conflict in index.htm
+Automatic merge failed; fix conflicts and then commit the result.     # 충돌 발생(깃에서 Merge Conflicts 메시지 출력)
+```
+index.htm 파일에서 같은 위치의 내용을 각각 다르게 수정하였기 때문에 자동 병합이 되지 않고 충돌이 발생하게 된다.
+<br/><br/>
+
+8. 소스트리에서 그래프를 확인하면 충돌 발생으로 인한 커밋되지 않은 변경 사항이 하나 추가되어 있다.
+![image](https://user-images.githubusercontent.com/99963066/201524707-31a49dd7-efa2-40c1-a7a0-5c5afa483a4d.png)  
+▶️ 병합 충돌이 발생하면 자동으로 커밋이 생성되지 않는다. 따라서 수동으로 해결해야 한다.
+<br/>
+  
+9. 어떤 충돌 상태인지 알아보기 위해 깃 상태를 확인한다.
+```bash
+뚜비@DESKTOP-SKBKL14 MINGW64 /c/OSS/git/10w chapter 08 (main|MERGING)     # 충돌 사항 표시
+$ git status
+On branch main
+You have unmerged paths.     # 충돌 사항
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:     # 충돌 내용이 Unmerged인 것을 확인 가능하다.
+  (use "git add <file>..." to mark resolution)
+        both modified:   index.htm
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+현재 충돌된 병합을 해결해야 하는 상태임을 알 수 있다.
+<br/><br/>
+
+### 충돌 예방 방법
+위와 같은 충돌은 피할 수 없지만 예방은 가능하다. 
+- 내부적으로 팀원 간 규칙을 정하고 상의하면서 개발을 진행하면 향후 발생할 충돌을 많이 줄일 수 있다.
+- main 브랜치 내용을 자주 자신의 브랜치로 병합한다. 자주 커밋하고 병합할수록 충돌이 발생할 기회는 적다.
+<br/>
+  
 # 📌 8.7 리베이스
 ## 8.7.1 베이스
 ## 8.7.2 베이스 변경
