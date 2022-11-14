@@ -425,10 +425,11 @@ $ git commit -am "edit copyright"
 <br/>
   
 6. main 브랜치와 footer 브랜치 각각에 커밋이 하나씩 추가되었다. 서로 다른 브랜치에서 각각 커밋했기 때문에 그래프가 두 갈래로 갈라져야 한다. 아래와 같이 소스트리에서 확인      가능하다.
+
 ![image](https://user-images.githubusercontent.com/99963066/201524360-adf29296-3764-4c87-a6c4-008b83e921e3.png)
 <br/>
   
-7. 서로 다르게 분기된 브랜치이기 때문에 3-way 병합을 시도해 본다. 현재 브랜치가 main인지를 확인 후 병합 명령어를 실행한다.
+7. 서로 다르게 분기된 브랜치이기 때문에 **3-way 병합**을 시도해 본다. 현재 브랜치가 **main인지를 확인** 후 병합 명령어를 실행한다.
 ```bash
 뚜비@DESKTOP-SKBKL14 MINGW64 /c/OSS/git/10w chapter 08 (main)     # 기준 브랜치
 $ git merge footer      # 병합 실행
@@ -440,7 +441,9 @@ index.htm 파일에서 같은 위치의 내용을 각각 다르게 수정하였�
 <br/><br/>
 
 8. 소스트리에서 그래프를 확인하면 충돌 발생으로 인한 커밋되지 않은 변경 사항이 하나 추가되어 있다.
+
 ![image](https://user-images.githubusercontent.com/99963066/201524707-31a49dd7-efa2-40c1-a7a0-5c5afa483a4d.png)  
+
 ▶️ 병합 충돌이 발생하면 자동으로 커밋이 생성되지 않는다. 따라서 수동으로 해결해야 한다.
 <br/>
   
@@ -468,6 +471,63 @@ no changes added to commit (use "git add" and/or "git commit -a")
 - main 브랜치 내용을 자주 자신의 브랜치로 병합한다. 자주 커밋하고 병합할수록 충돌이 발생할 기회는 적다.
 <br/>
   
+
+## 8.5.3. 수동으로 충돌 해결
+  
+충돌 발생은 결국 **수동**으로 해결해야 한다. 
+<br/><br/>
+
+1. 충돌한 소스 코드를 확인한다.
+```bash
+  뚜비@DESKTOP-SKBKL14 MINGW64 /c/OSS/git/10w chapter 08 (main|MERGING)    
+$ code index.htm     # VS Code 실행
+```
+  
+2. 깃은 충돌 발생 시 충돌된 코드 내용을 다음과 같이 기호와 함께 표시한다.
+
+![image](https://user-images.githubusercontent.com/99963066/201615502-8ce03cc5-8113-4ba3-a044-2e828ccf6aee.png)
+
+  
+충돌은 다음과 같이 두 부분으로 표시된다.
+```
+<<<<<<< HEAD
+기준이 되는 브랜치(main)의 내용
+=======
+병합하고자 하는 브랜치의 내용
+>>>>>>> 브랜치 이름
+```
+<br/>
+
+충돌한 내용을 수정할 때에는 깃에서 표시한 충돌 기호도 함께 삭제해야 한다. 코드를 수정하고 표시된 기호도 같이 삭제하여 다음과 같이 수정 후 저장한다.
+
+![image](https://user-images.githubusercontent.com/99963066/201617760-8bb86401-7b9d-4916-9cdf-d36b6526ee36.png)
+<br/>
+ 
+3. 다음과 같은 저수준 명령어를 통해 충돌한 파일들의 집합 확인도 가능하다.
+```bash
+뚜비@DESKTOP-SKBKL14 MINGW64 /c/OSS/git/10w chapter 08 (main|MERGING)
+$ git ls-files -u
+100644 0499cb94de55176c4ed39a44f707175463e47d4a 1       index.htm
+100644 840f4f46074c77f18b513d75b8d742666fd962bc 2       index.htm
+100644 fe149fcf49bbfa3330b88fbd6d1f1fe99a26bb36 3       index.htm
+```
+<br/>
+
+4. 충돌이 발생하면 병합 커밋을 자동으로 생성하지 않으므로 충돌을 해결한 후 병합 커밋을 직접 만들어야 한다.
+직접 충돌을 해결하면 파일은 modified 상태가 된다.
+```bash
+뚜비@DESKTOP-SKBKL14 MINGW64 /c/OSS/git/10w chapter 08 (main|MERGING)
+$ git add index.htm     # 스테이지에 등록
+
+뚜비@DESKTOP-SKBKL14 MINGW64 /c/OSS/git/10w chapter 08 (main|MERGING)
+$ git commit -m "resolve complicit"     # 병합 커밋 작성
+[main a9f5802] resolve complicit
+   
+뚜비@DESKTOP-SKBKL14 MINGW64 /c/OSS/git/10w chapter 08 (main)     # 충돌이 해결되어 깃의 충돌 마크가 사라짐.(|MERGING 이 사라짐)
+$
+```
+<br/>
+
 # 📌 8.7 리베이스
 ## 8.7.1 베이스
 ## 8.7.2 베이스 변경
